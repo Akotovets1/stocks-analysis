@@ -109,8 +109,10 @@ The refactored VBA code included just one loop:
 ![Stock analysis outputs for 2018](images/_table_refactoring_code_2018.png)
 
 When the original code was executed, it ran in 0.83 seconds for the 2017 and 0,87 seconds for the 2018.
-![run time for the original code 2017](images/ran_code_before_ refactoring_2017.png)
-![run time for the original code 2018](images/ran_code_before_ refactoring_2018.png)
+
+![run time for the original code 2017](images/ran_code_before_refactoring_2017.png)
+
+![run time for the original code 2018](images/ran_code_before_refactoring_2018.png)
 
 When the refactored code was executed, it ran in 0.19 seconds for the 2017 and 0,19 seconds for the 2018 which is much faster than the original code.
 ![run time for the refactored code 2017](Resources/VBA_Challenge_2017.png)
