@@ -47,12 +47,74 @@ The original VBA code included two loops:
 The refactored VBA code included just one loop:
 
 ```
-     '1a) Create a ticker Index    tickerIndex = 0        '1b) Create three output arrays    Dim tickerVolumes(12) As Long    Dim tickerStartingPrices(12) As Single    Dim tickerEndingPrices(12) As Single        ''2a) Create a for loop to initialize the tickerVolumes to zero.    Worksheets(yearValue).Activate    For i = 0 To 11        tickerVolumes(i) = 0        tickerStartingPrices(i) = 0        tickerEndingPrices(i) = 0    Next i              ''2b) Loop over all the rows in the spreadsheet.    For i = 2 To RowCount        '3a) Increase volume for current ticker    tickerVolumes(tickerIndex) = tickerVolumes(tickerIndex) + Cells(i, 8).Value                '3b) Check if the current row is the first row with the selected tickerIndex.        'If  Then        If Cells(i, 1).Value = tickers(tickerIndex) And Cells(i - 1, 1).Value <> tickers(tickerIndex) Then            tickerStartingPrices(tickerIndex) = Cells(i, 6).Value        'End If        End If              '3c) check if the current row is the last row with the selected ticker         'If the next row’s ticker doesn’t match, increase the tickerIndex.        'If  Then         If Cells(i, 1).Value = tickers(tickerIndex) And Cells(i + 1, 1).Value <> tickers(tickerIndex) Then            tickerEndingPrices(tickerIndex) = Cells(i, 6).Value         End If        '3d Increase the tickerIndex.        If Cells(i, 1).Value = tickers(tickerIndex) And Cells(i + 1, 1).Value <> tickers(tickerIndex) Then                tickerIndex = tickerIndex + 1        'End If        End If       Next i        '4) Loop through your arrays to output the Ticker, Total Daily Volume, and Return.    For i = 0 To 11                Worksheets("All Stocks Analysis").Activate        Cells(4 + i, 1).Value = tickers(i)        Cells(4 + i, 2).Value = tickerVolumes(i)        Cells(4 + i, 3).Value = tickerEndingPrices(i) / tickerStartingPrices(i) - 1            Next i
+ 
+    '1a) Create a ticker Index
+    tickerIndex = 0
+    
+    '1b) Create three output arrays
+    Dim tickerVolumes(12) As Long
+    Dim tickerStartingPrices(12) As Single
+    Dim tickerEndingPrices(12) As Single
+    
+    ''2a) Create a for loop to initialize the tickerVolumes to zero.
+    Worksheets(yearValue).Activate
+    For i = 0 To 11
+        tickerVolumes(i) = 0
+        tickerStartingPrices(i) = 0
+        tickerEndingPrices(i) = 0
+    Next i
+  
+        
+    ''2b) Loop over all the rows in the spreadsheet.
+    For i = 2 To RowCount
+
+        '3a) Increase volume for current ticker
+    tickerVolumes(tickerIndex) = tickerVolumes(tickerIndex) + Cells(i, 8).Value
+        
+        '3b) Check if the current row is the first row with the selected tickerIndex.
+        'If  Then
+        If Cells(i, 1).Value = tickers(tickerIndex) And Cells(i - 1, 1).Value <> tickers(tickerIndex) Then
+            tickerStartingPrices(tickerIndex) = Cells(i, 6).Value
+        'End If
+        End If
+      
+        '3c) check if the current row is the last row with the selected ticker
+         'If the next row’s ticker doesn’t match, increase the tickerIndex.
+        'If  Then
+         If Cells(i, 1).Value = tickers(tickerIndex) And Cells(i + 1, 1).Value <> tickers(tickerIndex) Then
+            tickerEndingPrices(tickerIndex) = Cells(i, 6).Value
+         End If
+
+        '3d Increase the tickerIndex.
+        If Cells(i, 1).Value = tickers(tickerIndex) And Cells(i + 1, 1).Value <> tickers(tickerIndex) Then
+                tickerIndex = tickerIndex + 1
+        'End If
+        End If
+    
+   Next i
+    
+    '4) Loop through your arrays to output the Ticker, Total Daily Volume, and Return.
+    For i = 0 To 11
+        
+        Worksheets("All Stocks Analysis").Activate
+        Cells(4 + i, 1).Value = tickers(i)
+        Cells(4 + i, 2).Value = tickerVolumes(i)
+        Cells(4 + i, 3).Value = tickerEndingPrices(i) / tickerStartingPrices(i) - 1
+        
+    Next i
 ```
+
+![Stock analysis outputs for 2017](images/_table_refactoring_code_2017.png)
+
+![Stock analysis outputs for 2018](images/_table_refactoring_code_2018.png)
+
 When the original code was executed, it ran in 0.83 seconds for the 2017 and 0,87 seconds for the 2018.
+![run time for the original code 2017](images/ran_code_before_ refactoring_2017.png)
+![run time for the original code 2018](images/ran_code_before_ refactoring_2018.png)
 
 When the refactored code was executed, it ran in 0.19 seconds for the 2017 and 0,19 seconds for the 2018 which is much faster than the original code.
-
+![run time for the refactored code 2017](Resources/VBA_Challenge_2017.png)
+![run time for the refactored code 2018](Resources/VBA_Challenge_2018.png)
 
 ## Summary
 ### Advantages of Refactoring Code
